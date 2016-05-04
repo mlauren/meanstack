@@ -1,5 +1,13 @@
 <div class="col-md-12">
-<div class="jumbotron">This is the works view. {{ $ctrl.message }}</div>
+<div class="jumbotron">This is the works view. {{ $ctrl.message }}
+  <button class="btn btn-primary"
+          data-animation="am-fade-and-scale"
+          data-placement="center"
+          data-template-url="app/works/image-upload-modal.html"
+          bs-modal="$ctrl.showModal">Add Image</button>
+</div>
+
+</div>
 
 <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="work in $ctrl.worksView">
   <li><a href="#" uib-tooltip="{{work.title}}">{{work.title}} <small> - {{work.description}}</small><button type="button" class="close" ng-click="$ctrl.deleteWork(work)">&times;</button></a></li>

@@ -3,7 +3,7 @@
 
 class WorksComponent {
 
-  constructor($http, $scope, socket, Auth) {
+  constructor($http, $scope, socket, Auth, $modal, Upload) {
 
     this.$http = $http;
     this.socket = socket;
@@ -12,6 +12,12 @@ class WorksComponent {
 
     this.message = 'Biiiiiiiiitccchhhh';
     this.worksView = [];
+
+
+    this.myModal = $modal({
+      scope: this.$scope,
+      show: false
+    });
   }
 
   $onInit() {
@@ -27,7 +33,7 @@ class WorksComponent {
     var work = {
       description: this.newWork.description,
       title: this.newWork.title,
-      image: '/assets/work.png',
+      image: [ "572a50ab7d966de608328be6", "572a50ab7d966de608328be7", "572a50ab7d966de608328be8" ],
       tags: [ 'ink', 'work', 'here' ],
       email: this.user.email,
       name: this.user.name,
@@ -59,6 +65,56 @@ class WorksComponent {
     .catch(function() {
       console.log('failed to post from frontend ');
     });
+  }
+
+  uploadImage(file) {
+    console.log(file);
+
+    /*
+    // Add to image object then to works object.
+    Upload.upload({
+      url: '/api/image',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      data: {
+        file: file,
+        title: this.newImage.title,
+        description: this.newImage.description,
+        _creator: this.user._id
+      }
+
+    });*/
+
+    /*
+    var image = {
+      description: this.newImage.description,
+      title: this.newImage.title
+    };
+
+    if (image) {
+      this.$http.post('/api/image', image)
+      .then(function(data) {
+        console.log('posted from frontend success');
+        console.log(data);
+      })
+      .catch(function() {
+        console.log('failed to post from frontend ');
+      });
+      this.newImage.description = '';
+      this.newImage.title = '';
+    }*/
+
+  }
+
+
+
+
+  // Other helpful Functions
+
+
+  showModal() {
+    this.myModal.$promise.then(this.myModal.show);
   }
 }
 

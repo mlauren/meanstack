@@ -7,12 +7,12 @@ var newWork;
 
 describe('Work API:', function() {
 
-  describe('GET /y', function() {
+  describe('GET /work', function() {
     var works;
 
     beforeEach(function(done) {
       request(app)
-        .get('/y')
+        .get('/work')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -30,10 +30,10 @@ describe('Work API:', function() {
 
   });
 
-  describe('POST /y', function() {
+  describe('POST /work', function() {
     beforeEach(function(done) {
       request(app)
-        .post('/y')
+        .post('/work')
         .send({
           name: 'New Work',
           info: 'This is the brand new work!!!'
@@ -56,12 +56,12 @@ describe('Work API:', function() {
 
   });
 
-  describe('GET /y/:id', function() {
+  describe('GET /work/:id', function() {
     var work;
 
     beforeEach(function(done) {
       request(app)
-        .get('/y/' + newWork._id)
+        .get('/work/' + newWork._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -84,12 +84,12 @@ describe('Work API:', function() {
 
   });
 
-  describe('PUT /y/:id', function() {
+  describe('PUT /work/:id', function() {
     var updatedWork;
 
     beforeEach(function(done) {
       request(app)
-        .put('/y/' + newWork._id)
+        .put('/work/' + newWork._id)
         .send({
           name: 'Updated Work',
           info: 'This is the updated work!!!'
@@ -116,11 +116,11 @@ describe('Work API:', function() {
 
   });
 
-  describe('DELETE /y/:id', function() {
+  describe('DELETE /work/:id', function() {
 
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete('/y/' + newWork._id)
+        .delete('/work/' + newWork._id)
         .expect(204)
         .end((err, res) => {
           if (err) {
@@ -132,7 +132,7 @@ describe('Work API:', function() {
 
     it('should respond with 404 when work does not exist', function(done) {
       request(app)
-        .delete('/y/' + newWork._id)
+        .delete('/work/' + newWork._id)
         .expect(404)
         .end((err, res) => {
           if (err) {

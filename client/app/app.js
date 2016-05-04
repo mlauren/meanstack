@@ -7,10 +7,13 @@ angular.module('portfolioApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
+  'ngAnimate',
+  'ngFileUpload',
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'validation.match'
+  'validation.match',
+  'mgcrea.ngStrap'
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider

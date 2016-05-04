@@ -4,9 +4,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var WorkSchema = new Schema({
-  image: String,
   title: String,
   description: String,
+  images: [{
+    type: Schema.ObjectId,
+    ref: 'Image'
+  }],
   tags: [{
     type: String
   }],
