@@ -12,6 +12,8 @@ import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
+import multer from 'multer';
+import fs from 'fs';
 import path from 'path';
 import lusca from 'lusca';
 import config from './environment';
@@ -46,6 +48,40 @@ export default function(app) {
       db: 'portfolio'
     })
   }));
+
+  app.use(function(req, res, next) {
+    var fileTooLarge = false;
+    var handler = multer({
+      dest: './client/assets/images/uploads/',
+      /*limits: {
+        fileSize: 1000000
+      },
+      onFileSizeLimit: function (file) {
+        fileTooLarge = true;
+        res.json({
+          uploadError: 'Upload failed. File must be less than 50000 KB'
+        });
+      },*/
+      rename: function(fieldname, filename) {
+        return filename + Date.now();
+      },
+      onFileUploadStart: function(file) {
+        console.log(file.originalname + ' is starting...');
+      },
+      onFileUploadComplete: function(file, req, res) {
+        var fileimage = file.name;
+        if(!fileTooLarge) {
+          console.log(file.fieldname + ' uploaded to ' + file.path);
+          req.middlewareStorage = {
+            fileimage: fileimage
+          }
+        } else {
+          fs.unlink('./client/assets/images/uploads/' + fileimage);
+        }
+      }
+    });
+    handler(req, res, next);
+  });
 
   /**
    * Lusca - express server security

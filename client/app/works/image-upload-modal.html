@@ -42,14 +42,20 @@
                                 ngf-select
                                 ng-model="picFile"
                                 accept="image/*"
-                                ngf-max-size="2MB" />
+                                ngf-max-size="2000000" required />
 
                       <span class="progress" ng-show="picFile.progress >= 0">
                         <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'" class="ng-binding"></div>
                      </span>
 
-                      <i ng-show="myForm.file.$error.maxSize">File too large
+                     <pre>
+
+                      {{ myForm | json }}
+                     </pre>
+
+                      <i ng-show="myForm.$error.maxSize">File too large
                       {{picFile.size / 1000000|number:1}}MB: max {{picFile.$errorParam}}</i>
+
                       <img ng-show="myForm.file.$valid"
                               ngf-src="!picFile.$error && picFile"
                               class="img-thumbnail img-responsive">
@@ -60,9 +66,6 @@
                                   ng-click="$ctrl.uploadImage(picFile)">Submit</button>
 
                       <div class="col-md-6" id="alertContainer"></div>
-                      <img ngf-src="picFile"
-                              class="img-thumbnail img-responsive"
-                              ng-show="picPreview">
 
                       <span ng-show="picFile.result">Upload Successful</span>
                       <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
@@ -78,9 +81,9 @@
         <button type="button"
                     class="btn btn-default pull-left"
                     ng-click="$hide()">Close</button>
-        <button type="button"
+        <!-- <button type="button"
                     class="btn btn-primary pull-left"
-                    ng-click="$ctrl.uploadImage()">Upload</button>
+                    ng-click="$ctrl.uploadImage()">Upload</button> -->
       </div>
     </div>
   </div>

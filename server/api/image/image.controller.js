@@ -11,6 +11,8 @@
 
 import _ from 'lodash';
 import Image from './image.model';
+var utils = require('../../utils/utils.js');
+
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -76,9 +78,28 @@ export function show(req, res) {
 
 // Creates a new Image in the DB
 export function create(req, res) {
-  return Image.create(req.body)
-    .then(respondWithResult(res, 201))
-    .catch(handleError(res));
+  console.log(req.middlewareStorage.fileimage);
+  console.log(req.body);
+
+  var fileimage = req.middlewareStorage.fileimage;
+  var newimage = new Image();
+
+  newimage.url = '/assets/images/uploads/' + fileimage;
+  newimage.title = req.body.title;
+  newimage.description = req.body.description;
+  newimage._creator = req.body._creator;
+  newimage.createTime = Date.now();
+
+  newimage.save(function(err, look) {
+    if(err) {
+      console.log('error saving look');
+      return res.send(500);
+    } else {
+      console.log(look);
+      res.status(200)
+        .send(look);
+    }
+  });
 }
 
 // Updates an existing Image in the DB
@@ -100,3 +121,8 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+
+export function upload(req, res) {
+  // var fileimage = req.middlewareStorage.fileimage;
+
+} 

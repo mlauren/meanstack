@@ -13,7 +13,7 @@ class MainController {
       socket.unsyncUpdates('thing');
     });
   }
-
+  /*
   $onInit() {
     this.$http.get('/api/things').then(response => {
       this.awesomeThings = response.data;
@@ -30,7 +30,7 @@ class MainController {
 
   deleteThing(thing) {
     this.$http.delete('/api/things/' + thing._id);
-  }
+  }*/
 }
 
 angular.module('portfolioApp')
