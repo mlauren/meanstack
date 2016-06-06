@@ -92,6 +92,17 @@ class WorksComponent {
     file.upload.then(function (response) {
         file.result = response.data;
         console.log(response.data);
+        console.log(el.$scope);
+
+        el.imgForm.$error = {};
+        el.imgForm.picFile = "";
+        el.imgForm.file = null;
+        el.newImage.description = "";
+        el.newImage.title = "";
+        el.imgForm.$setPristine(true);
+
+
+        el.imgForm.$setPristine();
     }, function (response) {
       if (response.status > 0) {
         console.log(response.data);
@@ -102,6 +113,9 @@ class WorksComponent {
       el.$scope.picFile = '';
     });
 
+    console.log(el.$scope);
+
+    
     /*
     var image = {
       description: this.newImage.description,
