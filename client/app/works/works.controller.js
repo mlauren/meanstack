@@ -11,8 +11,8 @@ class WorksComponent {
     this.user = Auth.getCurrentUser();
     this.Upload = Upload;
 
-    this.message = 'Biiiiiiiiitccchhhh';
     this.worksView = [];
+    this.imagesView = [];
 
 
     this.myModal = $modal({
@@ -25,8 +25,17 @@ class WorksComponent {
     this.$http.get('/api/work').then(response => {
       this.worksView = response.data;
 
-      console.log(this.worksView);
+      
       this.socket.syncUpdates('work', this.worksView);
+    });
+
+    this.$http.get('/api/image').then(response => {
+      console.log(response);
+      this.imagesView = response.data;
+
+      console.log(this.imagesView);
+
+      this.socket.syncUpdates('image', this.imagesView);
     });
   }
 
@@ -66,6 +75,10 @@ class WorksComponent {
     });
   }
 
+  showImages() {
+
+  }
+
   uploadImage(file) {
     var el = this;
     console.log(el);
@@ -90,31 +103,21 @@ class WorksComponent {
     
 
     file.upload.then(function (response) {
-        file.result = response.data;
-        console.log(response.data);
-        console.log(el.$scope);
-
-        el.imgForm.$error = {};
-        el.imgForm.picFile = "";
-        el.imgForm.file = null;
-        el.newImage.description = "";
-        el.newImage.title = "";
-        el.imgForm.$setPristine(true);
+      file.result = response.data;
+      console.log(response);
 
 
-        el.imgForm.$setPristine();
     }, function (response) {
       if (response.status > 0) {
-        console.log(response.data);
+        
       }
     }, function (evt) {
       // Math.min is to fix IE which reports 200% sometimes
       file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      el.$scope.picFile = '';
+
+      el.myModal.$promise.then(el.myModal.hide);
+
     });
-
-    console.log(el.$scope);
-
     
     /*
     var image = {
@@ -134,13 +137,15 @@ class WorksComponent {
       this.newImage.description = '';
       this.newImage.title = '';
     }*/
-
   }
 
 
 
 
   // Other helpful Functions
+  hideModal() {
+    this.myModal.$promise.then(this.myModal.hide);
+  }
 
 
   showModal() {

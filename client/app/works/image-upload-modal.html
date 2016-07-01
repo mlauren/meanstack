@@ -65,7 +65,7 @@
                       <button id="loadButton"
                                   class="btn btn-primary btn-lg"
                                   ng-disabled="!$ctrl.imgForm.$valid"
-                                  ng-click="$ctrl.uploadImage(picFile)">Submit</button>
+                                  ng-click="$ctrl.uploadImage(picFile);$hide();">Submit</button>
 
                       <pre>
                         {{ $ctrl.imgForm | json }}
